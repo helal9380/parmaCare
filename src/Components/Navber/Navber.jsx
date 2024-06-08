@@ -3,15 +3,21 @@
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../assets/caduceus-medical-logo-design-vector-44577052.jpg";
 import { FaCartPlus } from "react-icons/fa";
+import useAuth from "../../Hooks/useAuth";
+import toast from "react-hot-toast";
 
 const Navber = () => {
+  const { user, logOut } = useAuth();
+  // console.log(user);
   const links = (
     <>
       <li>
         <NavLink
           to={"/"}
           className={({ isActive }) =>
-            isActive ? "text-white  font-semibold text-xl " : "text-white text-xl  font-semibold"
+            isActive
+              ? "text-white  font-semibold text-xl "
+              : "text-white text-xl  font-semibold"
           }>
           Home
         </NavLink>
@@ -20,7 +26,9 @@ const Navber = () => {
         <NavLink
           to={"/shop"}
           className={({ isActive }) =>
-            isActive ? "text-white font-semibold text-xl " : "text-white text-xl font-semibold"
+            isActive
+              ? "text-white font-semibold text-xl "
+              : "text-white text-xl font-semibold"
           }>
           Shop
         </NavLink>
@@ -33,6 +41,18 @@ const Navber = () => {
       </li>
     </>
   );
+
+  const handleLogOut = () => {
+    logOut()
+      .then((result) => {
+        console.log(result);
+        toast.success("Successfully log out");
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("Not login!");
+      });
+  };
   return (
     <div className="navbar bg-[#66BC89]">
       <div className="navbar-start">
@@ -71,14 +91,23 @@ const Navber = () => {
         </div>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">{links}</ul>
+        <ul className="menu menu-horizontal">{links}</ul>
       </div>
       <div className="navbar-end space-x-5">
-        <Link
-          className="uppercase text-white font-semibold "
-          to={"/login"}>
-          Join
-        </Link>
+        {user ? (
+          
+          <button
+          onClick={handleLogOut}
+          className="btn btn-sm">
+          Log out
+        </button>
+        ) : (
+          <Link
+            className="uppercase text-white font-semibold "
+            to={"/login"}>
+            <button className="btn btn-sm">JOIN</button>
+          </Link>
+        )}
         <div className="dropdown dropdown-hover">
           <div
             tabIndex={0}
@@ -98,35 +127,60 @@ const Navber = () => {
           </ul>
         </div>
         {/* profile menu */}
-        <div className="dropdown dropdown-end">
-              <div
-                tabIndex={0}
-                role="button"
-                className="btn btn-ghost btn-circle avatar">
-                <div className="w-10 rounded-full">
-                  <img
-                    alt="Tailwind CSS Navbar component"
-                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-                  />
-                </div>
+        {user && (
+          <div className="dropdown dropdown-end">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost btn-circle avatar">
+              <div className="w-10 rounded-full">
+                <img
+                  alt="Tailwind CSS Navbar component"
+                  src={user?.photoURL}
+                />
               </div>
-              <ul
-                tabIndex={0}
-                className="menu bg-[#66BC89] menu-sm dropdown-content mt-3 z-[1] p-2 shadow text-white font-semibold rounded-box w-52">
-                <li>
-                  <a className="justify-between">
-                    Update Profile
-                 
-                  </a>
-                </li>
-                <li>
-                  <a>Dashboard</a>
-                </li>
-                <li>
-                  <a>Logout</a>
-                </li>
-              </ul>
             </div>
+            <ul
+              tabIndex={0}
+              className="menu bg-[#66BC89] menu-sm dropdown-content mt-3 z-[1]  shadow text-white font-semibold rounded-box w-52">
+              <li>
+                <div>
+                  <button
+                    onClick={() =>
+                      document.getElementById("my_modal_4").showModal()
+                    }
+                    className="justify-between">
+                    Update Profile
+                  </button>
+                  <dialog
+                    id="my_modal_4"
+                    className="modal">
+                    <div className="modal-box text-black">
+                      <h3 className="font-bold text-lg text-center">Update Profile!</h3>
+                      <div>
+                        <img className="w-12 h-12 mx-auto rounded-full mt-2" src={user?.photoURL} alt="" />
+                        <h3><span className="font-semibold text-lg">Name : </span> {user?.displayName}</h3>
+                        <h3><span className="font-semibold text-lg">Email : </span> {user?.email}</h3>
+                      </div>
+                      <div className="modal-action">
+                        <form method="dialog">
+                          {/* if there is a button, it will close the modal */}
+                          <button className="btn btn-sm bg-[#66BC89] text-white font-semibold">Close</button>
+                        </form>
+                      </div>
+                    </div>
+                  </dialog>
+                </div>
+              </li>
+              <li>
+                <a>Dashboard</a>
+              </li>
+              <li>
+                <a onClick={handleLogOut}>Logout</a>
+              </li>
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );

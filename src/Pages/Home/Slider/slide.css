@@ -1,0 +1,27 @@
+/** @format */
+
+.slide {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .swiper-button-prev,
+  .swiper-button-next {
+    color: #66BC89 !important;
+  }
+  
+  .swiper-pagination-bullet-active {
+    background-color: #66BC89 !important;
+  }
+  @media only screen and (max-width: 576px) {
+    .swiper-button-prev:after,
+    .swiper-button-next:after {
+      font-size: 24px !important;
+    }
+  }
+  
