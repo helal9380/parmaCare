@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 const Slider = () => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/products")
+    fetch("http://localhost:5000/categories")
       .then((res) => res.json())
       .then((data) => setProducts(data));
   }, []);

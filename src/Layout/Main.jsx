@@ -11,7 +11,7 @@ const Main = () => {
       <Navber></Navber>
 
       {/* Outlet */}
-      <div className="min-h-[calc(100vh-288px)]">
+      <div className="min-h-[calc(100vh-288px)] max-w-screen-xl mx-auto">
         <Outlet></Outlet>
       </div>
 
