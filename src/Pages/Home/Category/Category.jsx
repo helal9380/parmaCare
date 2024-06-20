@@ -16,7 +16,7 @@ const Category = () => {
     };
     getData();
   }, [axiosPublic]);
-  console.log(category);
+
   return (
     <div>
       <SectionTitle

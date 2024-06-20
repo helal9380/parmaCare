@@ -1,14 +1,18 @@
 /** @format */
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import loginImg from "../../assets/official-login.jpg";
 import { useForm } from "react-hook-form";
 import { FaGithub, FaGoogle } from "react-icons/fa";
 import useAuth from "../../Hooks/useAuth";
 import toast from "react-hot-toast";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import Swal from "sweetalert2";
 
 const Register = () => {
-    const {createUser} = useAuth()
+  const { createUser } = useAuth();
+  const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
   const {
     register,
     handleSubmit,
@@ -17,14 +21,45 @@ const Register = () => {
   const onSubmit = (data) => {
     console.log(data.email);
     createUser(data.email, data.password)
-    .then(result => {
+      .then((result) => {
         console.log(result);
-        toast.success('Registeration confirm')
-    })
-    .catch(error => {
+        const userInfo = {
+          name: data.name,
+          email: data.email,
+        };
+        axiosPublic
+          .post("/users", userInfo)
+          .then((res) => {
+            if (res.data.insertedId) {
+              Swal.fire({
+                title: "User added in the database",
+                showClass: {
+                  popup: `
+                animate__animated
+                animate__fadeInUp
+                animate__faster
+              `,
+                },
+                hideClass: {
+                  popup: `
+                animate__animated
+                animate__fadeOutDown
+                animate__faster
+              `,
+                },
+              });
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        toast.success("Registeration confirm");
+        navigate("/");
+      })
+      .catch((error) => {
         console.log(error);
-        toast.error('Something wrong!')
-    })
+        toast.error("Something wrong!");
+      });
   };
   return (
     <div className="md:w-8/12 mx-auto my-5">
@@ -65,7 +100,7 @@ const Register = () => {
             placeholder="Enter your photo url"
             className="input input-bordered w-full"
           />
-          
+
           {/* include validation with required or other standard HTML validation rules */}
           <input
             {...register("password", { required: true })}

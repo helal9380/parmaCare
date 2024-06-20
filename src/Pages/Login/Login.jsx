@@ -6,10 +6,12 @@ import { FaGithub, FaGoogle } from "react-icons/fa";
 // import useAuth from "../../Hooks/useAuth";
 import toast from "react-hot-toast";
 import useAuth from "../../Hooks/useAuth";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const Login = () => {
   const { signIn, gooleSignIn } = useAuth();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
   const {
     register,
     handleSubmit,
@@ -20,9 +22,9 @@ const Login = () => {
       .then((result) => {
         console.log(result);
         toast.success("Successfully login");
-        navigate('/')
+        navigate("/");
       })
-      .cacth((error) => {
+      .catch((error) => {
         console.log(error);
       });
     console.log(data);
@@ -30,9 +32,20 @@ const Login = () => {
   const handleGoogle = () => {
     gooleSignIn()
       .then((result) => {
-        console.log(result);
-        toast.success("Successfully login!");
-        navigate('/')
+        const userInfo = {
+          email: result.user.email,
+          name: result.user.displayName,
+        };
+        axiosPublic
+          .post("/users", userInfo)
+          .then((res) => {
+            console.log(res.data);
+            toast.success("Successfully login & save to the!");
+            navigate("/");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       })
       .catch((error) => {
         console.log(error);

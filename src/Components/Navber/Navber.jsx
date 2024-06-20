@@ -5,9 +5,12 @@ import logo from "../../assets/caduceus-medical-logo-design-vector-44577052.jpg"
 import { FaCartPlus } from "react-icons/fa";
 import useAuth from "../../Hooks/useAuth";
 import toast from "react-hot-toast";
+import useCarts from "../../Hooks/useCarts";
 
 const Navber = () => {
   const { user, logOut } = useAuth();
+  const [cart] = useCarts()
+
   // console.log(user);
   const links = (
     <>
@@ -33,12 +36,12 @@ const Navber = () => {
           Shop
         </NavLink>
       </li>
-      <li>
-        <button className="">
+      { user && <li>
+        <Link to={'dashboard/cart'} className="">
           <FaCartPlus className="text-xl mt-2 text-white"></FaCartPlus>
-          <div className="badge">+0</div>
-        </button>
-      </li>
+          <div className="badge">+ {cart.length}</div>
+        </Link>
+      </li>}
     </>
   );
 

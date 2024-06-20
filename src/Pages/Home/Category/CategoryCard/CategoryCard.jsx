@@ -3,7 +3,7 @@
 import { Link } from "react-router-dom";
 
 const CategoryCard = ({ category }) => {
-  console.log(category);
+
   const { category: cate, image, medicineCount } = category;
   return (
     <div className="flex gap-5 items-center p-2 border-2 border-[#66BC89] rounded-md">

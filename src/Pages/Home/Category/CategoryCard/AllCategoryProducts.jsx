@@ -1,12 +1,63 @@
 /** @format */
 
-import { FaEye } from "react-icons/fa";
+
 import { FcViewDetails } from "react-icons/fc";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
+import useAuth from "../../../../Hooks/useAuth";
+import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
+import useCarts from "../../../../Hooks/useCarts";
 
 const AllCategoryProducts = () => {
+  const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
   const data = useLoaderData();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const [, refetch] = useCarts();
   console.log(data);
+
+  const handleAdd = (item) => {
+    if (user && user?.email) {
+      const addItem = {
+        name: item?.name,
+        price: item?.price,
+        image: item?.image,
+        email: user?.email,
+        quantity: 1
+      };
+      axiosSecure.post("/carts", addItem).then((res) => {
+        console.log(res.data);
+        if (res.data.insertedId) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: `${item.name} added successfully`,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          // refecth here
+        }
+        refetch();
+      });
+
+    } else {
+      Swal.fire({
+        title: "You are not login",
+        text: "please login to add cart",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, login",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/login", { state: { from: location } });
+        }
+      });
+    }
+  };
   return (
     <div>
       <h2 className="text-3xl font-semibold text-center my-5">All Medicine</h2>
@@ -51,10 +102,10 @@ const AllCategoryProducts = () => {
                     <dialog
                       id="my_modal_3"
                       className="modal">
-                      <div className="modal-box">
+                      <div className="modal-box border-4 border-[#66BC89]">
                         <form method="dialog">
                           {/* if there is a button in form, it will close the modal */}
-                          <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                          <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 text-[#66BC89]">
                             ✕
                           </button>
                         </form>
@@ -88,7 +139,11 @@ const AllCategoryProducts = () => {
                     </dialog>
                   </th>
                   <th>
-                    <button className="btn btn-ghost btn-xs">details</button>
+                    <button
+                      onClick={() => handleAdd(item)}
+                      className="btn btn-ghost bg-[#66BC89] text-white hover:bg-[#459866] btn-xs">
+                      Add
+                    </button>
                   </th>
                 </tr>
               ))}
