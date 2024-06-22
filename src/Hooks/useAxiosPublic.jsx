@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosPublic = axios.create({
-    baseURL: 'http://localhost:5000'
+    baseURL: 'https://parma-care-client.vercel.app'
 })
 const useAxiosPublic = () => {
     return axiosPublic

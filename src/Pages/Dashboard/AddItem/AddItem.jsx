@@ -90,7 +90,7 @@ const AddItem = () => {
           </div>
           <textarea {...register('details')} className="textarea w-full my-5 textarea-bordered" placeholder="details..."></textarea>
           <div>
-          <input {...register('imgUrl')} type="text" placeholder="img url" className="input input-bordered w-full max-w-xs" />
+          <input {...register('imgUrl')} type="text" placeholder="img url" className="input input-bordered w-full" />
           </div>
           <button className="btn mt-5">Add Category <FaPumpMedical></FaPumpMedical></button>
         </form>
