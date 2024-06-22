@@ -51,9 +51,9 @@ const AddItem = () => {
   };
   return (
     <div>
-      <SectionTitle
-        heading="---What's new?---"
-        subHeading="ADD AN ITEM"></SectionTitle>
+    <div>
+      <h2 className="text-xl font-semibold text-center">Add category of the medicine</h2>
+    </div>
       <div className="max-w-screen-md mx-auto">
         <form
           className=""
@@ -64,7 +64,7 @@ const AddItem = () => {
           <input
             {...register("name")}
             type="text"
-            placeholder="Food Name"
+            placeholder="Name"
             className="input input-bordered w-full"
           />
 
@@ -99,7 +99,7 @@ const AddItem = () => {
               />
             </div>
           </div>
-          <textarea {...register('recipe')} className="textarea w-full my-5 textarea-bordered" placeholder="Food details..."></textarea>
+          <textarea {...register('recipe')} className="textarea w-full my-5 textarea-bordered" placeholder="details..."></textarea>
           <div>
           <input {...register('image')} type="file" className="file-input w-full max-w-xs" />
           </div>

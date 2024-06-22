@@ -9,11 +9,10 @@ import useMenu from "../../../Hooks/useMenu";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const ManageItems = () => {
-  const [menu] = useMenu();
-
+  const [populer,setPopuler,] = useMenu();
+console.log(populer);
   const axiosSecore = useAxiosSecure();
-
-  const handlDelete = async (item) => {
+  const handleDelete = async (item) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -24,12 +23,29 @@ const ManageItems = () => {
       confirmButtonText: "Yes, delete it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const res = await axiosSecore.delete(`/menu/${item._id}`);
-        if (res.data.deletedCount > 0) {
+        try {
+          const res = await axiosSecore.delete(`/menu/${item._id}`);
+          if (res.status === 200) {
+            // Update state or refetch menu data
+            setPopuler(populer.filter((menuItem) => menuItem._id !== item._id));
+            Swal.fire({
+              title: "Deleted!",
+              text: `${item.name} has been deleted.`,
+              icon: "success",
+            });
+          } else {
+            Swal.fire({
+              title: "Failed!",
+              text: "Failed to delete item.",
+              icon: "error",
+            });
+          }
+        } catch (error) {
+          console.error("Error deleting item:", error);
           Swal.fire({
-            title: "Deleted!",
-            text: `${item.name} has been deleted.`,
-            icon: "success",
+            title: "Error!",
+            text: "Failed to delete item.",
+            icon: "error",
           });
         }
       }
@@ -37,10 +53,14 @@ const ManageItems = () => {
   };
   return (
     <div>
-      <SectionTitle
-        heading={"MANAGE ITEMS"}
-        subHeading={"HURRY UP"}></SectionTitle>
-      <h2 className="text-center uppercase">Manage Items : {menu.length}</h2>
+      
+    <div className="flex justify-between px-10 bg-[#66BC89] py-2 gap-5 mb-5 items-center">
+    <h2 className="text-center uppercase text-white font-semibold">Manage Category : {populer.length}</h2>
+      <button className="btn btn-sm bg-[#488460] text-white border-none hover:bg-[#66BC89]">
+      <Link to={'/dashboard/addItem'}>Add medicine</Link>
+      </button>
+    </div>
+    <div className="w-60 h-[4px] bg-[#66BC89] mx-auto mb-5"></div>
       <div>
         <div className="overflow-x-auto">
           <table className="table">
@@ -49,16 +69,16 @@ const ManageItems = () => {
               <tr>
                 <th>No..</th>
                 <th>Images</th>
-                <th>Name</th>
+         
                 <th>Category</th>
-                <th>Price</th>
+                <th>medicine Count</th>
                 <th>Update</th>
                 <th>Delete</th>
               </tr>
             </thead>
             <tbody>
                         
-              {menu?.map((item, index) => (
+              {populer?.map((item, index) => (
                 <tr key={item._id}>
                   <th>{index + 1}</th>
                   <td>
@@ -73,15 +93,15 @@ const ManageItems = () => {
                       </div>
                     </div>
                   </td>
-                  <td>{item?.name}</td>
+             
                   <td>{item?.category}</td>
-                  <td>{item?.price}</td>
+                  <td>{item?.medicineCount}</td>
                   <th>
-                    <Link to={`update/${item._id}`} className="btn bg-orange-500 btn-xs">Update</Link>
+                    <Link to={`update/${item._id}`} className="btn bg-[#66BC89] text-white btn-xs">Update</Link>
                   </th>
                   <th>
                     <button
-                      onClick={() => handlDelete(item)}
+                      onClick={() => handleDelete(item)}
                       className="btn btn-ghost text-red-600 btn-md">
                       <FiDelete></FiDelete>
                     </button>

@@ -15,6 +15,8 @@ import { createBrowserRouter } from "react-router-dom";
 import AddItem from "../Pages/Dashboard/AddItem/AddItem";
 import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
 import Deshboard from "../Layout/Deshboard";
+import Checkout from "../Pages/Dashboard/Checkout/Checkout";
+import Invoice from "../Pages/Dashboard/Checkout/Invoice";
 
 const router = createBrowserRouter([
   {
@@ -50,16 +52,25 @@ const router = createBrowserRouter([
       </PrivateRout>
     ),
     children: [
+     
       {
         path: 'cart',
         element: <Cart></Cart>
+      },
+      {
+        path: 'checkout',
+        element: <Checkout></Checkout>
+      },
+      {
+        path: 'invoice',
+        element: <Invoice></Invoice>
       },
       {
         path: 'addItem',
         element:<AddItem></AddItem>
       },
       {
-        path: 'manageItems',
+        path: 'manageCategory',
         element:<ManageItems></ManageItems>
       },
       {

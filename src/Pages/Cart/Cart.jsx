@@ -3,6 +3,7 @@
 import { useState } from "react";
 import useCarts from "../../Hooks/useCarts";
 import axios from "axios"; // Assuming axios is used for HTTP requests
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const [cart,refecth, setCart] = useCarts();
@@ -32,9 +33,12 @@ const Cart = () => {
   return (
     <div>
       <div className="max-w-screen-md mx-auto border-2 border-[#66BC89] p-5">
+        <div className="flex justify-between my-5 items-center">
         <h3 className="text-center text-3xl font-semibold">
           All Carts {cart.length}
         </h3>
+        <Link to={'/dashboard/checkout'} className="btn hover:bg-[#53936d] btn-sm text-white font-semibold bg-[#66BC89]">Checkout</Link>
+        </div>
         <div>
           <div className="overflow-x-auto">
             <table className="table">
@@ -74,19 +78,19 @@ const Cart = () => {
                     <td>
                       <div className="flex gap-2 items-center">
                         <button
-                          className="btn btn-sm"
+                          className="btn btn-sm bg-[#66BC89] text-white font-semibold text-xl hover:bg-[#54906c]"
                           onClick={() =>
-                            updateQuantity(item._id, item.quantity, false)
+                            updateQuantity(item._id, item?.quantity, false)
                           }
-                          disabled={item.quantity <= 1}
+                          disabled={item?.quantity <= 1}
                         >
                           -
                         </button>
-                        <span>{item.quantity}</span>
+                        <span>{item?.quantity}</span>
                         <button
-                          className="btn btn-sm"
+                          className="btn btn-sm bg-[#66BC89] text-white font-semibold text-xl hover:bg-[#54906c]"
                           onClick={() =>
-                            updateQuantity(item._id, item.quantity, true)
+                            updateQuantity(item._id, item?.quantity, true)
                           }
                         >
                           +
@@ -94,7 +98,7 @@ const Cart = () => {
                       </div>
                     </td>
                     <td>
-                      <h3>{parsePrice(item.price)  * Number(item.quantity)}</h3>
+                      <h3>{parsePrice(item.price)  * Number(item?.quantity)}</h3>
                     </td>
                   </tr>
                 ))}

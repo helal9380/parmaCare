@@ -2,23 +2,23 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { FiDelete } from "react-icons/fi";
 import Swal from "sweetalert2";
 import { FaUser } from "react-icons/fa6";
+import { MdDelete } from "react-icons/md";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const AllUsers = () => {
   const axiosSecore = useAxiosSecure();
-  const { data: users = [], refetch } = useQuery({
-    queryKey: "users",
+
+  const { data: users = [], refetch, isLoading, isError } = useQuery({
+    queryKey: ["users"],
     queryFn: async () => {
       const res = await axiosSecore.get("/users");
-      console.log(res.data);
       return res.data;
     },
   });
-  console.log(users);
-  const handlDelete = (user) => {
+
+  const handleDelete = (user) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -32,80 +32,88 @@ const AllUsers = () => {
         axiosSecore
           .delete(`/users/${user._id}`)
           .then((res) => {
-            if (res.data.deletedCount > 0) {
-                refetch()
-              Swal.fire({
-                title: "Deleted!",
-                text: "Your file has been deleted.",
-                icon: "success",
-              });
+            if (res.data.message) {
+              refetch();
+              Swal.fire("Deleted!", "User has been deleted.", "success");
             }
           })
           .catch((err) => {
-            console.log(err);
+            Swal.fire("Error!", "Failed to delete user.", err);
           });
-
-        //
       }
     });
   };
-  const handlMakeAdmin = (user) => {
-    axiosSecore.patch(`/users/admin/${user._id}`)
-    .then(res => {
-        if(res.data.modifiedCount > 0 ) {
-            refetch()
-            Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: `${user.name} is admin now`,
-                showConfirmButton: false,
-                timer: 1500
-              });
-        }
-    })
+
+  const handleMakeAdmin = (user) => {
+    axiosSecore.patch(`/users/admin/${user._id}`).then((res) => {
+      if (res.data.message) {
+        refetch();
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: `${user.name} is now an admin.`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    }).catch((err) => {
+      Swal.fire("Error!", "Failed to update user role.", "error");
+    });
+  };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
   }
+
+  if (isError) {
+    return <div>Error fetching users.</div>;
+  }
+
   return (
     <div>
       <div className="flex justify-evenly text-2xl font-semibold">
-        <h2>All User</h2>
-        <h2>Total User {users.length}</h2>
+        <h2>All Users</h2>
+        <h2>Total Users: {users.length}</h2>
       </div>
-      <div>
-        <div className="overflow-x-auto">
-          <table className="table">
-            {/* head */}
-            <thead>
-              <tr>
-                <th></th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th>Action</th>
+      <div className="overflow-x-auto">
+        <table className="table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map((user, index) => (
+              <tr key={user._id}>
+                <th>{index + 1}</th>
+                <td>{user.name}</td>
+                <td>{user.email}</td>
+                <td>
+                  {user.role === "admin" ? "Admin" : (
+                    <button
+                      onClick={() => handleMakeAdmin(user)}
+                      className="btn text-[#66BC89] btn-sm"
+                    >
+                      <FaUser />
+                    </button>
+                  )}
+                </td>
+                <td>
+                  <button
+                    onClick={() => handleDelete(user)}
+                    className="btn btn-ghost text-red-600 btn-sm"
+                  >
+                    <MdDelete className="text-xl" />
+                  </button>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {users.map((user,index) => (
-                <tr key={user._id}>
-                  <th>{index + 1}</th>
-                  <td>{user.name}</td>
-                  <td>{user.email}</td>
-                  <td>
-                    { user.role === 'admin' ? 'Admin' : <button
-                      onClick={() => handlMakeAdmin(user)}
-                      className="btn bg-orange-300 text-red-600 btn-md">
-                      <FaUser></FaUser>
-                    </button>}
-                    </td>
-                  <td><button
-                      onClick={() => handlDelete(user)}
-                      className="btn btn-ghost text-red-600 btn-md">
-                      <FiDelete></FiDelete>
-                    </button></td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
