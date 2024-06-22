@@ -2,14 +2,11 @@
 
 import { useForm } from "react-hook-form";
 
-import { FaUtensils } from "react-icons/fa";
-
-
-
 import Swal from "sweetalert2";
-import SectionTitle from "../../../Components/SectionTitle/SectionTitle";
+
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import { FaPumpMedical } from "react-icons/fa6";
 
 const imgeHostintKey = import.meta.env.VITE_IMAGE_HOSTING;
 const imageHosting = `https://api.imgbb.com/1/upload?key=${imgeHostintKey}`
@@ -18,22 +15,14 @@ const AddItem = () => {
   const axiosSecure =useAxiosSecure()
   const { register, handleSubmit, reset } = useForm();
   const onSubmit = async(data) => {
-    const imageFile = {image: data.image[0]}
-   const res = await axiosPublic.post(imageHosting, imageFile, {
-    headers: {
-      'Content-Type' : 'multipart/form-data'
-    }
-   });
-   if(res.data.success) {
-
     const menuItem = {
       name: data.name,
       category: data.category,
       price:parseFloat(data.price),
-      recipe: data.recipe,
-      image: res.data.data.display_url
+      details: data.details,
+      image: data.imgUrl
     }
-    const menuRes = await axiosSecure.post('/menu', menuItem);
+    const menuRes = await axiosSecure.post('/category', menuItem);
     if(menuRes.data.insertedId) {
       console.log('item set in the database', menuRes.data);
       reset()
@@ -45,8 +34,6 @@ const AddItem = () => {
         timer: 1500
       });
     }
-   }
-   console.log(res.data);
     console.log(data)
   };
   return (
@@ -81,10 +68,12 @@ const AddItem = () => {
                   selected>
                   Select a category
                 </option>
-                <option value="salad">Salad</option>
-                <option value="pizza">Pizza</option>
-                <option value="dessert">Dessert</option>
-                <option value="driks">Drinks</option>
+                <option value="salad">Pain Relief</option>
+                <option value="pizza">Antibiotics</option>
+                <option value="dessert">Cold and Flu</option>
+                <option value="driks">Allergy</option>
+                <option value="driks">Antidote</option>
+                <option value="driks">Barbiturates</option>
               </select>
             </div>
             <div className="w-full">
@@ -99,11 +88,11 @@ const AddItem = () => {
               />
             </div>
           </div>
-          <textarea {...register('recipe')} className="textarea w-full my-5 textarea-bordered" placeholder="details..."></textarea>
+          <textarea {...register('details')} className="textarea w-full my-5 textarea-bordered" placeholder="details..."></textarea>
           <div>
-          <input {...register('image')} type="file" className="file-input w-full max-w-xs" />
+          <input {...register('imgUrl')} type="text" placeholder="img url" className="input input-bordered w-full max-w-xs" />
           </div>
-          <button className="btn">Add item <FaUtensils></FaUtensils></button>
+          <button className="btn mt-5">Add Category <FaPumpMedical></FaPumpMedical></button>
         </form>
       </div>
     </div>
