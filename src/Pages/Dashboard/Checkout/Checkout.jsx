@@ -11,18 +11,16 @@ import {
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 
-
 import useCarts from "../../../Hooks/useCarts";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_KEY);
 
-
 const CheckoutForm = ({ totalAmount, cart }) => {
   const stripe = useStripe();
   const elements = useElements();
 
-  const axiosSecure = useAxiosSecure()
+  const axiosSecure = useAxiosSecure();
   const [clientSecret, setClientSecret] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -77,8 +75,7 @@ const CheckoutForm = ({ totalAmount, cart }) => {
       <button
         className="btn btn-sm bg-[#66BC89] text-white hover:bg-[#498260] mt-5"
         disabled={loading}
-        type="submit"
-      >
+        type="submit">
         Pay now ${totalAmount}
       </button>
     </form>
@@ -100,7 +97,10 @@ const Checkout = () => {
         <div className="w-12 h-[5px] bg-[#66BC89] mt-2 mx-auto"></div>
       </div>
       <Elements stripe={stripePromise}>
-        <CheckoutForm totalAmount={totalAmount} cart={cart} />
+        <CheckoutForm
+          totalAmount={totalAmount}
+          cart={cart}
+        />
       </Elements>
     </div>
   );

@@ -2,20 +2,18 @@
 
 import { useEffect, useState } from "react";
 import SectionTitle from "../../../Components/SectionTitle/SectionTitle";
-import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+// import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import CategoryCard from "./CategoryCard/CategoryCard";
 
 const Category = () => {
-  const axiosPublic = useAxiosPublic();
+
   const [category, seCategory] = useState([]);
 
   useEffect(() => {
-    const getData = async () => {
-      const { data } = await axiosPublic.get("/categories");
-      seCategory(data);
-    };
-    getData();
-  }, [axiosPublic]);
+    fetch('http://localhost:5000/categories')
+    .then(res => res.json())
+    .then(data => seCategory(data))
+  }, []);
 
   return (
     <div>

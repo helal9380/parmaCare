@@ -30,12 +30,13 @@ const Navber = () => {
           to={"/shop"}
           className={({ isActive }) =>
             isActive
-              ? "text-white font-semibold text-xl "
-              : "text-white text-xl font-semibold"
+              ? "text-white  font-semibold text-xl "
+              : "text-white text-xl  font-semibold"
           }>
           Shop
         </NavLink>
       </li>
+      
       { user && <li>
         <Link to={'dashboard/cart'} className="">
           <FaCartPlus className="text-xl mt-2 text-white"></FaCartPlus>

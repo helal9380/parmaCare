@@ -40,10 +40,7 @@ const Deshboard = () => {
                 <FaList></FaList>
                 <NavLink className='uppercase' to={"/dashboard/manageCategory"}>Manage Category</NavLink>
               </li>
-              <li className="flex items-center gap-2">
-                <IoBook></IoBook>
-                <NavLink to={"/dashboard/booking"}>MANAGE BOOKING</NavLink>
-              </li>
+            
               <li className="flex items-center gap-2">
                 <FaUser></FaUser>
                 <NavLink to={"/dashboard/users"}>ALL USERS</NavLink>
