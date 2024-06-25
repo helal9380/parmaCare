@@ -14,7 +14,7 @@ const Cart = () => {
     if (newQuantity < 1) return; // Prevent quantity from being less than 1
 
     try {
-      const res = await axios.put(`http://localhost:5000/carts/${id}`, {
+      const res = await axios.put(`https://parma-care-client.vercel.app/carts/${id}`, {
         quantity: newQuantity,
         
       });

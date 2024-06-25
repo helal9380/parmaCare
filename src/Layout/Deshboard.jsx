@@ -11,7 +11,7 @@ import {
 import { TbBrandBooking } from "react-icons/tb";
 import { Link, NavLink, Outlet } from "react-router-dom";
 
-import { FaSpoon } from "react-icons/fa6";
+import { FaIdCard, FaSpoon } from "react-icons/fa6";
 import { IoBook } from "react-icons/io5";
 
 import useCarts from "../Hooks/useCarts";
@@ -79,8 +79,8 @@ const Deshboard = () => {
             <Link to={"/"}>Home</Link>
           </li>
           <li className="flex items-center gap-2">
-            <FaHome></FaHome>
-            <Link to={"/menu"}>Menu</Link>
+            <FaIdCard></FaIdCard>
+            <Link to={"/shop"}>Shop</Link>
           </li>
           <li className="flex items-center gap-2">
             <FaHome></FaHome>
