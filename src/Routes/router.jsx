@@ -35,18 +35,13 @@ const router = createBrowserRouter([
         path: "/category/:category",
         element: <AllCategoryProducts></AllCategoryProducts>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/category/${params.category}`),
+          fetch(`https://parma-care-client.vercel.app/category/${params.category}`),
       },
      
       {
         path: "/shop",
         element: <Shop></Shop>
       },
-      // {
-      //   path: "/shop/:id",
-      //   element: <ShopDetails></ShopDetails>,
-      //   loader: ({params}) => fetch(`http://localhost:5000/shop/${params.id}`)
-      // },
       {
         path: "/login",
         element: <Login></Login>,
@@ -89,7 +84,7 @@ const router = createBrowserRouter([
       {
         path: 'manageItems/update/:id',
         element:<Update></Update>,
-        loader: ({params}) => fetch(`http://localhost:5000/menu/${params.id}`)
+        loader: ({params}) => fetch(`https://parma-care-client.vercel.app/menu/${params.id}`)
 
       },
       {

@@ -10,7 +10,7 @@ const Category = () => {
   const [category, seCategory] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/categories')
+    fetch('https://parma-care-client.vercel.app/categories')
     .then(res => res.json())
     .then(data => seCategory(data))
   }, []);
