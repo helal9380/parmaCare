@@ -19,7 +19,7 @@ import Checkout from "../Pages/Dashboard/Checkout/Checkout";
 import Invoice from "../Pages/Dashboard/Checkout/Invoice";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Shop from "../Pages/Shop/Shop";
-import ShopDetails from "../Pages/Shop/ShopDetails";
+
 
 const router = createBrowserRouter([
   {
@@ -35,7 +35,7 @@ const router = createBrowserRouter([
         path: "/category/:category",
         element: <AllCategoryProducts></AllCategoryProducts>,
         loader: ({ params }) =>
-          fetch(`https://parma-care-client.vercel.app/category/${params.category}`),
+          fetch(`http://localhost:5000/category/${params.category}`),
       },
      
       {
@@ -84,7 +84,7 @@ const router = createBrowserRouter([
       {
         path: 'manageItems/update/:id',
         element:<Update></Update>,
-        loader: ({params}) => fetch(`https://parma-care-client.vercel.app/menu/${params.id}`)
+        loader: ({params}) => fetch(`http://localhost:5000/menu/${params.id}`)
 
       },
       {

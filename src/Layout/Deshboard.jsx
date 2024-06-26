@@ -56,18 +56,7 @@ const Deshboard = () => {
                   My Cart ({cart.length})
                 </NavLink>
               </li>
-              <li className="flex items-center gap-2">
-                <FaCartPlus></FaCartPlus>
-                <NavLink to={"/deshboard/cart"}>My add cart</NavLink>
-              </li>
-              <li className="flex items-center gap-2">
-                <TbBrandBooking></TbBrandBooking>
-                <NavLink to={"/deshboard/cart"}>My Booging</NavLink>
-              </li>
-              <li className="flex items-center gap-2">
-                <CgProfile></CgProfile>
-                <NavLink to={"/deshboard/cart"}>Profile</NavLink>
-              </li>
+             
             </ul>
           </div>
         )}

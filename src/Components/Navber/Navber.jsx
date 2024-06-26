@@ -37,11 +37,16 @@ const Navber = () => {
         </NavLink>
       </li>
       
-      { user && <li>
-        <Link to={'dashboard/cart'} className="">
-          <FaCartPlus className="text-xl mt-2 text-white"></FaCartPlus>
-          <div className="badge">+ {cart.length}</div>
-        </Link>
+      { user &&   <li>
+        <NavLink
+          to={"dashboard/cart"}
+          className={({ isActive }) =>
+            isActive
+              ? "text-white  font-semibold text-xl "
+              : "text-white text-xl  font-semibold"
+          }>
+          Dashboard
+        </NavLink>
       </li>}
     </>
   );
