@@ -50,6 +50,7 @@ const AddItem = () => {
           </div>
           <input
             {...register("name")}
+            required
             type="text"
             placeholder="Name"
             className="input input-bordered w-full"
@@ -62,18 +63,19 @@ const AddItem = () => {
               </div>
               <select
                 {...register("category")}
+                required
                 className="select w-full border select-primary">
                 <option
                   disabled
-                  selected>
+                  defaultValue>
                   Select a category
                 </option>
-                <option value="salad">Pain Relief</option>
-                <option value="pizza">Antibiotics</option>
-                <option value="dessert">Cold and Flu</option>
-                <option value="driks">Allergy</option>
-                <option value="driks">Antidote</option>
-                <option value="driks">Barbiturates</option>
+                <option defaultValue="salad">Pain Relief</option>
+                <option defaultValue="pizza">Antibiotics</option>
+                <option defaultValue="dessert">Cold and Flu</option>
+                <option defaultValue="driks">Allergy</option>
+                <option defaultValue="driks">Antidote</option>
+                <option defaultValue="driks">Barbiturates</option>
               </select>
             </div>
             <div className="w-full">
@@ -82,15 +84,16 @@ const AddItem = () => {
               </div>
               <input
                 {...register("price")}
+                required
                 type="text"
                 placeholder="Price"
                 className="input input-bordered w-full"
               />
             </div>
           </div>
-          <textarea {...register('details')} className="textarea w-full my-5 textarea-bordered" placeholder="details..."></textarea>
+          <textarea {...register('details')} required className="textarea w-full my-5 textarea-bordered" placeholder="details..."></textarea>
           <div>
-          <input {...register('imgUrl')} type="text" placeholder="img url" className="input input-bordered w-full" />
+          <input {...register('imgUrl')} required type="text" placeholder="img url" className="input input-bordered w-full" />
           </div>
           <button className="btn mt-5">Add Category <FaPumpMedical></FaPumpMedical></button>
         </form>

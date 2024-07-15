@@ -77,7 +77,7 @@ const AllCategoryProducts = () => {
             </thead>
             <tbody>
               {/* row 1 */}
-              {data.map((item, index) => (
+              {data?.map((item, index) => (
                 <tr key={index}>
                   <th>{index + 1}</th>
                   <td>
@@ -105,12 +105,13 @@ const AllCategoryProducts = () => {
                       <div className="modal-box border-4 border-[#66BC89]">
                         <form method="dialog">
                           {/* if there is a button in form, it will close the modal */}
-                          <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 text-[#66BC89]">
+                          <button className="btn btn-sm btn-circle bg-[#66BC89] absolute right-2 top-2 text-white hover:text-[#66BC89]">
                             ✕
                           </button>
                         </form>
-                        <div className="w-1/2">
+                        <div className="">
                           <img
+                          className="w-full"
                             src={item?.image}
                             alt=""
                           />

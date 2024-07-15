@@ -10,7 +10,7 @@ import {
 import axios from 'axios';
 // import { useHistory } from 'react-router-dom';
 
-const stripePromise = loadStripe('pk_test_51PU5z401FLseERyAyq4Ui6rjDIfnKFhwfhStSvzqub39wcxsdaMrwFeTeB2aqQTj0nQPZdmvt3jmO8rG6yDHgXtI00Gu91pYpJ');
+const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_KEY);
 
 const CheckoutForm = ({ totalAmount }) => {
   const stripe = useStripe();

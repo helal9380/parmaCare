@@ -2,16 +2,21 @@
 
 import { useState } from "react";
 import useCarts from "../../Hooks/useCarts";
-import axios from "axios"; // Assuming axios is used for HTTP requests
+import axios from "axios";
 import { Link } from "react-router-dom";
+// import { FaCross } from "react-icons/fa";
+import { RxCross2 } from "react-icons/rx";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const Cart = () => {
   const [cart,refecth, setCart] = useCarts();
+  const axiosSecure = useAxiosSecure()
 
   const updateQuantity = async (id, quantity, isIncrement) => {
     const newQuantity = isIncrement ? quantity + 1 : quantity - 1;
 
-    if (newQuantity < 1) return; // Prevent quantity from being less than 1
+    if (newQuantity < 1) return;
 
     try {
       const res = await axios.put(`http://localhost:5000/carts/${id}`, {
@@ -30,6 +35,19 @@ const Cart = () => {
     // Remove the dollar sign and convert to a number
     return parseFloat(priceString.replace("$", ""));
   };
+
+  const handleDelete = async (item) => {
+    const res = await axiosSecure.delete(`/cart/${item._id}`);
+    console.log(res.data);
+    if(res.data.deletedCount > 0) {
+      Swal.fire({
+        title: `${item.name} has been deleted`,
+        text: "You clicked the button!",
+        icon: "success"
+      });
+      refecth()
+    }
+  }
   return (
     <div>
       <div className="max-w-screen-md mx-auto border-2 border-[#66BC89] p-5">
@@ -49,6 +67,7 @@ const Cart = () => {
                   <th>Price</th>
                   <th>Quantity</th>
                   <th>Total Price</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -99,6 +118,11 @@ const Cart = () => {
                     </td>
                     <td>
                       <h3>{parsePrice(item.price)  * Number(item?.quantity)}</h3>
+                    </td>
+                    <td>
+                      <button onClick={() => handleDelete(item)} className="btn btn-sm bg-red-400 hover:bg-red-500 text-white">
+                      <RxCross2 />
+                      </button>
                     </td>
                   </tr>
                 ))}
