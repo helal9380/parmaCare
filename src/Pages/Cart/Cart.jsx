@@ -1,6 +1,4 @@
 /** @format */
-
-import { useState } from "react";
 import useCarts from "../../Hooks/useCarts";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -10,7 +8,7 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 
 const Cart = () => {
-  const [cart,refecth, setCart] = useCarts();
+  const [cart,refecth] = useCarts();
   const axiosSecure = useAxiosSecure()
 
   const updateQuantity = async (id, quantity, isIncrement) => {
@@ -31,22 +29,39 @@ const Cart = () => {
       console.error("Failed to update quantity:", error);
     }
   };
-  const parsePrice = (priceString) => {
-    // Remove the dollar sign and convert to a number
-    return parseFloat(priceString.replace("$", ""));
-  };
 
-  const handleDelete = async (item) => {
-    const res = await axiosSecure.delete(`/cart/${item._id}`);
+
+  const handleDelete = (item) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then( async(result) => {
+      if (result.isConfirmed) {
+        const res = await axiosSecure.delete(`/cart/${item._id}`);
+        console.log(res.data);
+        if(res.data.deletedCount > 0) {
+          Swal.fire({
+          title: `${item?.name} has been deleted!`,
+          text: "Your medicine has been deleted.",
+          icon: "success"
+        });
+          refecth()
+        }
+      }
+    });
+    
+  }
+  // clear all here
+
+  const handleClearAll = async() => {
+    const res = await axiosSecure.delete('/carts');
     console.log(res.data);
-    if(res.data.deletedCount > 0) {
-      Swal.fire({
-        title: `${item.name} has been deleted`,
-        text: "You clicked the button!",
-        icon: "success"
-      });
-      refecth()
-    }
+    refecth()
   }
   return (
     <div>
@@ -55,7 +70,7 @@ const Cart = () => {
         <h3 className="text-center text-3xl font-semibold">
           All Carts {cart.length}
         </h3>
-        <Link to={'/dashboard/checkout'} className="btn hover:bg-[#53936d] btn-sm text-white font-semibold bg-[#66BC89]">Checkout</Link>
+        {cart.length ? <Link to={'/dashboard/checkout'} className="btn hover:bg-[#53936d] btn-sm text-white font-semibold bg-[#66BC89]">Checkout</Link> : <Link to={'/dashboard/checkout'}><button className="btn btn-sm">Checkout</button></Link>}
         </div>
         <div>
           <div className="overflow-x-auto">
@@ -117,7 +132,7 @@ const Cart = () => {
                       </div>
                     </td>
                     <td>
-                      <h3>{parsePrice(item.price)  * Number(item?.quantity)}</h3>
+                      <h3>{item.price  * item.quantity}</h3>
                     </td>
                     <td>
                       <button onClick={() => handleDelete(item)} className="btn btn-sm bg-red-400 hover:bg-red-500 text-white">
@@ -129,6 +144,9 @@ const Cart = () => {
               </tbody>
               {/* foot */}
             </table>
+            <div className="flex justify-end">
+              <button disabled={!cart.length} onClick={handleClearAll} className="btn btn-sm bg-[#66BC89] text-white font-semibold hover:bg-[#4f966c]">Clear All</button>
+            </div>
           </div>
         </div>
       </div>

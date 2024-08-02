@@ -1,50 +1,97 @@
 /** @format */
 
-import { FaLongArrowAltRight } from "react-icons/fa";
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/effect-coverflow";
+import "swiper/css/pagination";
+
+import "./about.css";
+
+// import required modules
+import { EffectCoverflow, Pagination } from "swiper/modules";
+import SectionTitle from "./SectionTitle/SectionTitle";
 
 const About = () => {
   return (
-    <div>
- 
-      <div className="text-center">
-        <h2 className="text-3xl font-semibold my-4">
-          About 
-          <span className="text-[#b65a18]">Us</span>
-        </h2>
-        <p className="md:w-1/2 mx-auto mb-5">
-        Barbiturates are a class of depressant drugs that are chemically derived from barbituric acid. They are effective when used medically as anxiolytics, hypnotics, {" "}
-        </p>
-      </div>
-      <div className="md:flex justify-center">
-        <div className="md:w-1/2">
-          <img
-            src="https://i.ibb.co/0t9Pj6D/apostolos-vamvouras-t-Un-Mg-IHHTQY-unsplash.jpg"
-            alt=""
-          />
-        </div>
-        <div className="md:w-1/2">
-          <div className=" text-white bg-[#4f311b] right-0 w-full h-full">
-            <div className="px-10 py-5">
-              <h2 className="">Parma Care</h2>
-              <p>
-              Barbiturates are a class of depressant drugs that are chemically derived from barbituric acid. They are effective when used medically as anxiolytics, hypnotics, and anticonvulsants, but have physical and psychological addiction potential as well as overdose potential among other possible adverse
-              </p>
-            
-              <div className="flex justify-between">
-                <p className="flex gap-3 items-center">
-                  {" "}
-                  <FaLongArrowAltRight /> <span>Complete Savety Analysis</span>
-                </p>
-                <p className="flex gap-3 items-center">
-                  {" "}
-                  <FaLongArrowAltRight /> <span>Open 7 days a week</span>
-                </p>
+    <div className="w-1/2 mx-auto">
+      <SectionTitle
+        title={"Testimonial"}
+        subTitle={"Our client review"}></SectionTitle>
+      <Swiper
+        effect={"coverflow"}
+        grabCursor={true}
+        centeredSlides={true}
+        slidesPerView={"auto"}
+        coverflowEffect={{
+          rotate: 50,
+          stretch: 0,
+          depth: 100,
+          modifier: 1,
+          slideShadows: true,
+        }}
+        pagination={true}
+        modules={[EffectCoverflow, Pagination]}
+        className="mySwiper">
+        <SwiperSlide>
+          <div className="border border-[#66BC89]">
+            <div className="space-y-2 p-5 rounded-lg border-2 border-[#66BC89]">
+              <div className="w-[200px] mx-auto">
+                <img
+                  className="rounded-xl"
+                  src="https://i.ibb.co/B67h8Q6/christian-buehner-DIt-Ylc26z-VI-unsplash-1.jpg"
+                  alt=""
+                />
               </div>
-             
+              <h2 className="text-lg font-semibold">Name: Sarah Johnson</h2>
+              <h5>
+                <span className="font-semibold">Position:</span> Marketing
+                Manager
+              </h5>
+              <h6>
+                <span className="font-semibold">Company:</span> ABC Corp
+              </h6>
+              <p>
+                Using this service has transformed our business. The
+                user-friendly interface and excellent customer support have made
+                it easy to integrate into our daily operations. We have seen a
+                significant increase in productivity and efficiency. Highly
+                recommend!
+              </p>
             </div>
           </div>
-        </div>
-      </div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className="border border-[#66BC89]">
+            <div className="space-y-2 p-5 rounded-lg border-2 border-[#66BC89]">
+            <div className="w-[200px] mx-auto">
+                <img
+                  className="rounded-xl"
+                  src="https://i.ibb.co/qDkV1GP/jonas-kakaroto-KIPqvv-TOC1s-unsplash.jpg"
+                  alt=""
+                />
+              </div>
+              <h2 className="text-lg font-semibold">Name: Sarah Johnson</h2>
+              <h5>
+                <span className="font-semibold">Position:</span> Marketing
+                Manager
+              </h5>
+              <h6>
+                <span className="font-semibold">Company:</span> ABC Corp
+              </h6>
+              <p>
+                Using this service has transformed our business. The
+                user-friendly interface and excellent customer support have made
+                it easy to integrate into our daily operations. We have seen a
+                significant increase in productivity and efficiency. Highly
+                recommend!
+              </p>
+            </div>
+          </div>
+        </SwiperSlide>
+        
+      </Swiper>
     </div>
   );
 };

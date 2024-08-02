@@ -52,7 +52,7 @@ const Deshboard = () => {
             <ul className="space-y-5">
               <li className="flex items-center gap-2">
                 <FaShoppingCart></FaShoppingCart>
-                <NavLink to={"/deshboard/cart"}>
+                <NavLink to={"/dashboard/cart"}>
                   My Cart ({cart.length})
                 </NavLink>
               </li>

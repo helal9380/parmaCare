@@ -35,6 +35,7 @@ const Shop = () => {
   const handleSearch = async () => {
     const res = await axiosPublic.get(`/products/search?query=${searchQuery}`);
     setProducts(res.data);
+    
   };
 
   const handleAdd = (item) => {
@@ -97,10 +98,10 @@ const Shop = () => {
         </div>
       </div>
       <div>
-        <div className="max-w-screen-lg mx-auto overflow-x-auto">
+        <div className="max-w-screen-lg mx-auto overflow-x-auto mt-2">
           <table className="table">
-            <thead>
-              <tr>
+            <thead >
+              <tr className="text-lg">
                 <th>No</th>
                 <th>Images</th>
                 <th>Name</th>
@@ -157,13 +158,11 @@ const Shop = () => {
                             </h3>
                           </>
                         )}
-                        <p className="py-4">
-                          This modal works with anchor links
-                        </p>
+                        
                         <div className="modal-action">
                           <a
                             href="#"
-                            className="btn">
+                            className="btn btn-sm bg-[#66BC89] text-white font-semibold hover:bg-[#51926b]">
                             Cancel
                           </a>
                         </div>

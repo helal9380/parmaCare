@@ -15,6 +15,7 @@ import "./discount.css";
 // import required modules
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import Swal from "sweetalert2";
 
 const DisCountProducts = () => {
   const [products, setProducts] = useState([]);
@@ -32,6 +33,18 @@ const DisCountProducts = () => {
     getData();
   }, [axiosPublic]);
   console.log(products);
+  const handleAddCart = (async(item) => {
+    const res = await axiosPublic.post('/carts', item)
+    if(res.data.insertedId) {
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: `${item.name} added successfully`,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+  })
   return (
     <div className="my-20 px-2 md:px-5">
       <SectionTitle
@@ -46,7 +59,7 @@ const DisCountProducts = () => {
             type: "fraction",
           }}
           autoplay={{
-            delay: 2500,
+            delay: 2000,
             disableOnInteraction: false,
           }}
           navigation={true}
@@ -67,7 +80,7 @@ const DisCountProducts = () => {
                   <p><span className="font-semibold">Category : </span>{product.category}</p>
                   <p><span className="font-semibold">Description : </span>{product.description}</p>
                   <div className="card-actions justify-center ">
-                    <button className="btn btn-sm bg-[#66BC89] border-[#66BC89] border text-white font-semibold">Buy Now</button>
+                    <button onClick={() => handleAddCart(product)} className="btn btn-sm bg-[#66BC89] border-[#66BC89] border text-white font-semibold">Buy Now</button>
                   </div>
                 </div>
               </div>

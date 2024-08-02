@@ -7,6 +7,7 @@ import "./slide.css";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const Slider = () => {
   const [products, setProducts] = useState([]);
@@ -22,6 +23,10 @@ const Slider = () => {
         navigation={true}
         pagination={{
           clickable: true,
+        }}
+        autoplay={{
+          delay: 3000,
+          disableOnInteraction: false,
         }}
         modules={[Navigation, Autoplay, Pagination]}
         loop={true}>
@@ -48,11 +53,10 @@ const Slider = () => {
                   timeless elegance of wood through our curated collection of
                   handcrafted treasures.
                 </p>
-                <a
-                  href="#hospitality"
+                <Link to={'/shop'}
                   className="py-2 px-4 border border-[#66BC89] rounded-lg font-bold">
                   Explore Now
-                </a>
+                </Link>
               </div>
             </div>
           </SwiperSlide>
