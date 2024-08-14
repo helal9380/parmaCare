@@ -108,7 +108,7 @@ const Cart = () => {
                         </div>
                       </div>
                     </th>
-                    <td>{item.price}</td>
+                    <td>${item.price}</td>
                     <td>
                       <div className="flex gap-2 items-center">
                         <button
@@ -132,7 +132,7 @@ const Cart = () => {
                       </div>
                     </td>
                     <td>
-                      <h3>{item.price  * item.quantity}</h3>
+                      <h3>${item.price  * item.quantity}</h3>
                     </td>
                     <td>
                       <button onClick={() => handleDelete(item)} className="btn btn-sm bg-red-400 hover:bg-red-500 text-white">

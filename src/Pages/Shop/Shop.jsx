@@ -9,12 +9,14 @@ import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { Navigate } from "react-router-dom";
+import useAdmin from "../../Hooks/useAdmin";
 
 const Shop = () => {
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
   const [products, setProducts] = useState([]);
   const [details, setDetails] = useState(null);
+  const [isAdmin] = useAdmin();
   const [searchQuery, setSearchQuery] = useState("");
   const [, refetch] = useCarts();
   const {user} = useAuth();
@@ -38,10 +40,11 @@ const Shop = () => {
     
   };
 
-  const handleAdd = (item) => {
+  const handleAddToCart = (item) => {
     if (user && user?.email) {
       const addItem = {
         name: item?.name,
+        menuId: item._id,
         price: item?.price,
         image: item?.image,
         email: user?.email,
@@ -78,6 +81,31 @@ const Shop = () => {
       });
     }
   };
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then( async(result) => {
+      if (result.isConfirmed) {
+        const res = await axiosSecure.delete(`/products/${id}`);
+        console.log(res.data);
+        if(res.data.deletedCount > 0) {
+          Swal.fire({
+          title: `Deleted!`,
+          text: "Your medicine has been deleted.",
+          icon: "success"
+        });
+          refetch();
+        }
+      }
+    });
+    
+  }
   return (
     <div className="mt-[2px]">
       <div className="bg-[#66BC89] text-white py-5 rounded">
@@ -109,6 +137,7 @@ const Shop = () => {
                 <th>Price</th>
                 <th>Action</th>
                 <th>Add to card</th>
+                {isAdmin && <th>Delete</th>}
               </tr>
             </thead>
             <tbody>
@@ -171,11 +200,19 @@ const Shop = () => {
                   </th>
                   <th>
                     <button
-                      onClick={() => handleAdd(product)}
+                      onClick={() => handleAddToCart(product)}
                       className="btn btn-sm">
                       Add to card
                     </button>
                   </th>
+                  {isAdmin && <th>
+                    <button
+                      onClick={() => handleDelete(product._id)}
+                      className="btn btn-sm">
+                      Delete
+                    </button>
+                  </th>}
+
                 </tr>
               ))}
             </tbody>

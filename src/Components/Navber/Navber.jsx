@@ -2,7 +2,6 @@
 
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../assets/caduceus-medical-logo-design-vector-44577052.jpg";
-import { FaCartPlus } from "react-icons/fa";
 import useAuth from "../../Hooks/useAuth";
 import toast from "react-hot-toast";
 import useCarts from "../../Hooks/useCarts";

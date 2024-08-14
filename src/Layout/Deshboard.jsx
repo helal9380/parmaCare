@@ -3,6 +3,7 @@
 import { CgProfile } from "react-icons/cg";
 import {
   FaCartPlus,
+  FaHistory,
   FaHome,
   FaList,
   FaShoppingCart,
@@ -72,8 +73,8 @@ const Deshboard = () => {
             <Link to={"/shop"}>Shop</Link>
           </li>
           <li className="flex items-center gap-2">
-            <FaHome></FaHome>
-            <Link to={"/order/:category"}>Order</Link>
+            <FaHistory></FaHistory>
+            <Link to={"/dashboard/invoice"}>Purchess history</Link>
           </li>
         </ul>
       </div>

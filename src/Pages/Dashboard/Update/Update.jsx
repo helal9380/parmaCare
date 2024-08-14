@@ -69,18 +69,20 @@ const Update = () => {
                 <span className="text-xl font-semibold">Category</span>
               </div>
               <select
-              defaultValue={category}
                 {...register("category")}
+                required
                 className="select w-full border select-primary">
                 <option
                   disabled
-                  selected>
+                  defaultValue>
                   Select a category
                 </option>
-                <option value="salad">Salad</option>
-                <option value="pizza">Pizza</option>
-                <option value="dessert">Dessert</option>
-                <option value="driks">Drinks</option>
+                <option defaultValue="salad">Pain Relief</option>
+                <option defaultValue="pizza">Antibiotics</option>
+                <option defaultValue="dessert">Cold and Flu</option>
+                <option defaultValue="driks">Allergy</option>
+                <option defaultValue="driks">Antidote</option>
+                <option defaultValue="driks">Barbiturates</option>
               </select>
             </div>
             <div className="w-full">

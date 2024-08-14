@@ -82,7 +82,7 @@ const router = createBrowserRouter([
         element:<ManageItems></ManageItems>
       },
       {
-        path: 'manageItems/update/:id',
+        path: 'manageCategory/update/:id',
         element:<Update></Update>,
         loader: ({params}) => fetch(`http://localhost:5000/menu/${params.id}`)
 

@@ -1,17 +1,17 @@
 /** @format */
-
 import { Link } from "react-router-dom";
-
+import logo from "../../assets/caduceus-medical-logo-design-vector-44577052.jpg";
 const Footer = () => {
   return (
-    <footer className="footer p-10 bg-base-200 text-base-content">
+    <section className="bg-[#66BC89] text-white pt-10">
+      <div className="text-center text-3xl font-semibold">
+        <h2>Parma Care</h2>
+      </div>
+      <footer className="footer p-10">
+      
       <aside>
-       <img src="https://i.ibb.co/phTgwtM/download-1-removebg-preview.png" alt="logo" />
-        <p className="font-semibold">
-          Parma Care Ltd.
-          <br />
-          Providing reliable tech since 2024
-        </p>
+        
+       <img className="w-40 rounded-full" src={logo} alt="logo" />
       </aside>
       <nav>
         <h6 className="footer-title">Services</h6>
@@ -34,6 +34,7 @@ const Footer = () => {
         <Link to={'/register'} className="link link-hover">Register</Link>
       </nav>
     </footer>
+    </section>
   );
 };
 
