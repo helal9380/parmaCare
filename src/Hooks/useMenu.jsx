@@ -5,7 +5,7 @@ const useMenu = () => {
   const [populer, setPopuler] = useState([]);
   const [loading, setLoading] = useState(true)
   useEffect(() => {
-    fetch("http://localhost:5000/categories")
+    fetch("http://localhost:5000/categoriess")
       .then((res) => res.json())
       .then((data) => {
         setPopuler(data);

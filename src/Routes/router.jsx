@@ -19,6 +19,12 @@ import Checkout from "../Pages/Dashboard/Checkout/Checkout";
 import Invoice from "../Pages/Dashboard/Checkout/Invoice";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Shop from "../Pages/Shop/Shop";
+import AdminRoute from "./AdminRoute";
+import AdminHome from "../Pages/Home/AdminHome/AdminHome";
+import PaymentHistory from "../Pages/History/PaymentHistory";
+import PaymentManagement from "../Pages/Dashboard/PaymentManagement/PaymentManagement";
+import SalesReport from "../Pages/Dashboard/SalesReport/SalesReport";
+import ManageAdvertise from "../Pages/Dashboard/ManageAdvertise/ManageAdvertise";
 
 
 const router = createBrowserRouter([
@@ -74,6 +80,10 @@ const router = createBrowserRouter([
         element: <Invoice></Invoice>
       },
       {
+        path: 'history',
+        element: <PaymentHistory></PaymentHistory>
+      },
+      {
         path: 'addItem',
         element:<AddItem></AddItem>
       },
@@ -89,8 +99,24 @@ const router = createBrowserRouter([
       },
       {
         path: 'users',
-        element: <AllUsers></AllUsers>
-      }
+        element:<AllUsers></AllUsers>
+      },
+      {
+        path: 'adminHome',
+        element: <AdminHome></AdminHome>
+      },
+      {
+        path: 'salesReport',
+        element: <SalesReport></SalesReport>
+      },
+      {
+        path: 'manageAdvertise',
+        element: <ManageAdvertise></ManageAdvertise>
+      },
+      {
+        path: 'payment_management',
+        element: <PaymentManagement></PaymentManagement>
+      },
     ],
   },
 ]);

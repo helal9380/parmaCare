@@ -17,6 +17,10 @@ import { IoBook } from "react-icons/io5";
 
 import useCarts from "../Hooks/useCarts";
 import useAdmin from "../Hooks/useAdmin";
+import { MdPayment } from "react-icons/md";
+import { SiGoogletagmanager } from "react-icons/si";
+import { FcSalesPerformance } from "react-icons/fc";
+import { GrUserAdmin } from "react-icons/gr";
 
 const Deshboard = () => {
   const [cart] = useCarts();
@@ -24,27 +28,40 @@ const Deshboard = () => {
 
   return (
     <div className="flex">
+      
       <div className="w-64 p-10 bg-[#66BC89] text-white min-h-screen font-semibold">
-        <h2 className="text-xl font-semibold my-2">My Dashboard</h2>
+        <h2 className="text-2xl font-semibold my-3">My Dashboard</h2>
         {isAdmin ? (
           <div>
             <ul className="space-y-5">
               <li className="flex items-center gap-2">
-                <FaHome></FaHome>
-                <NavLink to={"/dashboard/adminHome"}>ADMIN HOME</NavLink>
+              <GrUserAdmin />
+                <NavLink to={"/dashboard/adminHome"}>Admin Home</NavLink>
               </li>
               <li className="flex items-center gap-2">
                 <FaSpoon></FaSpoon>
-                <NavLink to={"/dashboard/addItem"}>ADD ITEMS</NavLink>
+                <NavLink to={"/dashboard/addItem"}>Add Items</NavLink>
               </li>
               <li className="flex items-center gap-2">
                 <FaList></FaList>
-                <NavLink className='uppercase' to={"/dashboard/manageCategory"}>Manage Category</NavLink>
+                <NavLink className='' to={"/dashboard/manageCategory"}>Manage Category</NavLink>
               </li>
             
               <li className="flex items-center gap-2">
                 <FaUser></FaUser>
-                <NavLink to={"/dashboard/users"}>ALL USERS</NavLink>
+                <NavLink to={"/dashboard/users"}>All Users</NavLink>
+              </li>
+              <li className="flex items-center gap-2">
+              <MdPayment />
+                <NavLink to={"/dashboard/payment_management"}>P-Management</NavLink>
+              </li>
+              <li className="flex items-center gap-2">
+              <FcSalesPerformance className="text-white" />
+                <NavLink to={"/dashboard/salesReport"}>Sales Report</NavLink>
+              </li>
+              <li className="flex items-center gap-2">
+              <SiGoogletagmanager />
+                <NavLink to={"/dashboard/manageAdvertise"}>M-B_Advertise</NavLink>
               </li>
             </ul>
           </div>
@@ -57,7 +74,10 @@ const Deshboard = () => {
                   My Cart ({cart.length})
                 </NavLink>
               </li>
-             
+              <li className="flex items-center gap-2">
+            <FaHistory></FaHistory>
+            <Link to={"/dashboard/history"}>Purchess History</Link>
+          </li>
             </ul>
           </div>
         )}
@@ -67,14 +87,6 @@ const Deshboard = () => {
           <li className="flex items-center gap-2">
             <FaHome></FaHome>
             <Link to={"/"}>Home</Link>
-          </li>
-          <li className="flex items-center gap-2">
-            <FaIdCard></FaIdCard>
-            <Link to={"/shop"}>Shop</Link>
-          </li>
-          <li className="flex items-center gap-2">
-            <FaHistory></FaHistory>
-            <Link to={"/dashboard/invoice"}>Purchess history</Link>
           </li>
         </ul>
       </div>

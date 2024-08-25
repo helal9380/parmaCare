@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import { FaUser } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import SectionTitle from "../../../Components/SectionTitle/SectionTitle";
 
 const AllUsers = () => {
   const axiosSecore = useAxiosSecure();
@@ -57,7 +58,7 @@ const AllUsers = () => {
         });
       }
     }).catch((err) => {
-      Swal.fire("Error!", "Failed to update user role.", "error");
+      Swal.fire("Error!", "Failed to update user role.", err);
     });
   };
 
@@ -71,17 +72,17 @@ const AllUsers = () => {
 
   return (
     <div>
-      <div className="flex justify-evenly text-2xl font-semibold">
-        <h2>All Users</h2>
-        <h2>Total Users: {users.length}</h2>
-      </div>
+      <SectionTitle
+        title={"All Users"}
+        subTitle={"Welcome to all users page"}></SectionTitle>
+      
       <div className="overflow-x-auto">
         <table className="table">
           <thead>
             <tr>
-              <th></th>
-              <th>Name</th>
-              <th>Email</th>
+              <th>No..</th>
+              <th>User Name</th>
+              <th>User Email</th>
               <th>Role</th>
               <th>Action</th>
             </tr>

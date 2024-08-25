@@ -65,7 +65,13 @@ const Cart = () => {
   }
   return (
     <div>
-      <div className="max-w-screen-md mx-auto border-2 border-[#66BC89] p-5">
+      {cart.length < 1 ?<div className="flex items-center justify-center">
+        <div className="text-center uppercase">
+          <h3 className="text-3xl text-red-500">Sorry</h3>
+        <h3 className="text-2xl mb-2">Your cart is empty</h3>
+        <Link to={'/shop'}><button className="btn uppercase hover:bg-[#2f6c47] text-white font-semibold bg-[#66BC89]">Shop Now</button></Link>
+        </div>
+      </div>: <div className="max-w-screen-md mx-auto border-2 border-[#66BC89] p-5">
         <div className="flex justify-between my-5 items-center">
         <h3 className="text-center text-3xl font-semibold">
           All Carts {cart.length}
@@ -149,7 +155,7 @@ const Cart = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div>}
     </div>
   );
 };

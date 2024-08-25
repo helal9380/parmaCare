@@ -32,7 +32,7 @@ const DisCountProducts = () => {
     };
     getData();
   }, [axiosPublic]);
-  console.log(products);
+
   const handleAddCart = (async(item) => {
     const res = await axiosPublic.post('/carts', item)
     if(res.data.insertedId) {

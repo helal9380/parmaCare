@@ -10,7 +10,7 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const ManageItems = () => {
   const [populer,setPopuler,] = useMenu();
-console.log(populer);
+
   const axiosSecore = useAxiosSecure();
   const handleDelete = async (item) => {
     Swal.fire({
@@ -53,9 +53,11 @@ console.log(populer);
   };
   return (
     <div>
-      
+      <SectionTitle
+        title={"Manage Category"}
+        subTitle={"Welcome to manage category page"}></SectionTitle>
     <div className="flex justify-between px-10 bg-[#66BC89] py-2 gap-5 mb-5 items-center">
-    <h2 className="text-center uppercase text-white font-semibold">Manage Category : {populer.length}</h2>
+    <h2 className="text-center uppercase text-white font-semibold">All Categories : {populer.length}</h2>
       <button className="btn btn-sm bg-[#488460] text-white border-none hover:bg-[#66BC89]">
       <Link to={'/dashboard/addItem'}>Add medicine</Link>
       </button>

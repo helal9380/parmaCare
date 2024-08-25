@@ -10,7 +10,7 @@ const Category = () => {
   const [category, seCategory] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/categories')
+    fetch('http://localhost:5000/categoriess')
     .then(res => res.json())
     .then(data => seCategory(data))
   }, []);

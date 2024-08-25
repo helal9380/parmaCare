@@ -48,7 +48,8 @@ const Shop = () => {
         price: item?.price,
         image: item?.image,
         email: user?.email,
-        quantity: 1
+        quantity: 1,
+        status: 'pending'
       };
       axiosSecure.post("/carts", addItem).then((res) => {
         // console.log(res.data);

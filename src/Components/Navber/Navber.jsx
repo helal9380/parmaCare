@@ -5,11 +5,12 @@ import logo from "../../assets/caduceus-medical-logo-design-vector-44577052.jpg"
 import useAuth from "../../Hooks/useAuth";
 import toast from "react-hot-toast";
 import useCarts from "../../Hooks/useCarts";
+import useAdmin from "../../Hooks/useAdmin";
 
 const Navber = () => {
   const { user, logOut } = useAuth();
   const [cart] = useCarts()
-
+  const [isAdmin] = useAdmin();
   // console.log(user);
   const links = (
     <>
@@ -36,9 +37,9 @@ const Navber = () => {
         </NavLink>
       </li>
       
-      { user &&   <li>
+      {isAdmin ? <li>
         <NavLink
-          to={"dashboard/cart"}
+          to={"dashboard/adminHome"}
           className={({ isActive }) =>
             isActive
               ? "text-white  font-semibold text-xl "
@@ -46,7 +47,19 @@ const Navber = () => {
           }>
           Dashboard
         </NavLink>
-      </li>}
+      </li>
+      : <li>
+      <NavLink
+        to={"dashboard/cart"}
+        className={({ isActive }) =>
+          isActive
+            ? "text-white  font-semibold text-xl "
+            : "text-white text-xl  font-semibold"
+        }>
+        Dashboard
+      </NavLink>
+    </li>
+      }
     </>
   );
 
